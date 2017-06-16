@@ -79,22 +79,35 @@ class ViewController: UIViewController {
     //進むボタンのAction作成 (0.12)
     @IBAction func A_Next(_ sender: Any) {
         
-        //インデックスを繰り上げる
+        //インデックスを繰り上げる (0.12)
         if V_Index < 15 {       //Current Index:0~14 => Next Index:+1
             V_Index += 1
         } else {                //Current Index:15   => Next Index:-1
             V_Index = 0
         }
         
-        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得
+        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.12)
         V_PicName = L_ImageName[V_Index]
         
-        //取得したインデックス番号の画像データを表示
+        //取得したインデックス番号の画像データを表示 (0.12)
         IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
     }
     
     //戻るボタンのAction作成 (0.12)
     @IBAction func A_Previous(_ sender: Any) {
+
+        //インデックスを繰り下げる (0.13)
+        if V_Index > 0 {       //Current Index:1~15 => Next Index:-1
+            V_Index -= 1
+        } else {                //Current Index:0   => Next Index:15
+            V_Index = 15
+        }
+        
+        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.13)
+        V_PicName = L_ImageName[V_Index]
+        
+        //取得したインデックス番号の画像データを表示 (0.13)
+        IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
     }
     
 }
