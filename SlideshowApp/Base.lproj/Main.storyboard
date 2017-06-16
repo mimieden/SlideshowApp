@@ -25,6 +25,9 @@
                                 <rect key="frame" x="56" y="456" width="31" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="A_Previous:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Is2-Zl-dkw"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="B_StartStop" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-tr-d1g">
                                 <rect key="frame" x="108" y="456" width="135" height="30"/>
@@ -41,6 +44,9 @@
                                 <rect key="frame" x="281" y="456" width="31" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="進む"/>
+                                <connections>
+                                    <action selector="A_Next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h1e-eY-qTf"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="IMG_Slideshow" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-DG-4RJ">
                                 <rect key="frame" x="27" y="52" width="319" height="314"/>

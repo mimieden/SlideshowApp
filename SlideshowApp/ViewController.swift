@@ -19,6 +19,31 @@ class ViewController: UIViewController {
     //ステータス判定用の変数 (0.03)
     var V_CountUp: Int = 0             //カウントアップ
     var V_Status: Int = 0              //ボタン押下時のステータス
+    
+    //画像の名称を配列に入れる (0.12)
+    let L_ImageName = [
+        "000.jpg",
+        "001.JPG",
+        "002.JPG",
+        "003.JPG",
+        "004.JPG",
+        "005.JPG",
+        "006.JPG",
+        "007.JPG",
+        "008.jpg",
+        "009.JPG",
+        "010.JPG",
+        "011.JPG",
+        "012.jpg",
+        "013.jpg",
+        "014.jpg",
+        "015.jpg",
+    ]
+    
+    //配列操作用の変数 (0.12)
+    var V_Index: Int = 0
+    //配列から取得する画像名称
+    var V_PicName: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +53,7 @@ class ViewController: UIViewController {
         B_StartStop.setTitle("再生", for: .normal)
         
         //画像データ1枚目を表示 (0.11)
-        IMG_Slideshow.image = UIImage(named: "001.JPG") //画像"001.JPG"を読み込みImage Viewへセットする
+        IMG_Slideshow.image = UIImage(named: "000.JPG") //画像"00.JPG"を読み込みImage Viewへセットする
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,5 +75,27 @@ class ViewController: UIViewController {
             B_StartStop.setTitle("再生", for: .normal)     //(停止して)再生ボタンを表示
         }
     }
+    
+    //進むボタンのAction作成 (0.12)
+    @IBAction func A_Next(_ sender: Any) {
+        
+        //インデックスを繰り上げる
+        if V_Index < 15 {       //Current Index:0~14 => Next Index:+1
+            V_Index += 1
+        } else {                //Current Index:15   => Next Index:-1
+            V_Index = 0
+        }
+        
+        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得
+        V_PicName = L_ImageName[V_Index]
+        
+        //取得したインデックス番号の画像データを表示
+        IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+    }
+    
+    //戻るボタンのAction作成 (0.12)
+    @IBAction func A_Previous(_ sender: Any) {
+    }
+    
 }
 
