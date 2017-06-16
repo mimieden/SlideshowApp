@@ -52,8 +52,10 @@ class ViewController: UIViewController {
         //再生停止ボタンの初期値(再生)を設定 (0.03)
         B_StartStop.setTitle("再生", for: .normal)
         
-        //画像データ1枚目を表示 (0.11)
-        IMG_Slideshow.image = UIImage(named: "000.JPG") //画像"00.JPG"を読み込みImage Viewへセットする
+        //画像データ1枚目を表示 (0.14)
+        V_PicName = L_ImageName[V_Index]                 //インデックス(初期値)と同じインデックスの写真名を配列から変数に取得
+        IMG_Slideshow.image = UIImage(named: V_PicName)  //取得したインデックス番号の画像をImage Viewへセットする
+        
     }
 
     override func didReceiveMemoryWarning() {
