@@ -33,6 +33,9 @@
                                 <state key="highlighted">
                                     <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="A_Push:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tf3-dy-5Kk"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="il2-SN-iJz">
                                 <rect key="frame" x="281" y="456" width="31" height="30"/>
