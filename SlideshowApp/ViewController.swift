@@ -42,8 +42,12 @@ class ViewController: UIViewController {
     
     //配列操作用の変数 (0.12)
     var V_Index: Int = 0
-    //配列から取得する画像名称
+    
+    //配列から取得する画像名称 (0.12)
     var V_PicName: String = ""
+    
+    //スライドショーコントロールのためにタイマー用の変数を宣言 (0.20)
+    var V_Timer:Timer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +59,29 @@ class ViewController: UIViewController {
         //画像データ1枚目を表示 (0.14)
         V_PicName = L_ImageName[V_Index]                 //インデックス(初期値)と同じインデックスの写真名を配列から変数に取得
         IMG_Slideshow.image = UIImage(named: V_PicName)  //取得したインデックス番号の画像をImage Viewへセットする
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //タイマーが始動すると2秒ごとに呼び出される関数 => インデックスを繰り上げて画像表示を行う (0.20)
+    func F_UpdateTimer(timer: Timer) {
+        //インデックスを繰り上げる (0.20)
+        if V_Index < 15 {       //Current Index:0~14 => Next Index:+1
+            V_Index += 1
+        } else {                //Current Index:15   => Next Index:-1
+            V_Index = 0
+        }
+        
+        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.20)
+        V_PicName = L_ImageName[V_Index]
+        
+        //取得したインデックス番号の画像データを表示 (0.20)
+        IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+    }
+
 
     //再生停止ボタンのAction作成 (0.03)
     @IBAction func A_Push(_ sender: Any) {
@@ -70,14 +90,18 @@ class ViewController: UIViewController {
         V_Status = V_CountUp % 2          //カウントアップ変数から偶数/奇数を判断
         V_CountUp += 1                    //ステータス判断したのでカウントアップ
         
-        //ステータスに応じてタイトルを切り替え (0.03)
-        if V_Status == 0 {                                //偶数 = 停止状態
-            B_StartStop.setTitle("停止", for: .normal)     //(再生して)停止ボタンを表示
-        } else {                                          //奇数 = 再生状態
-            B_StartStop.setTitle("再生", for: .normal)     //(停止して)再生ボタンを表示
+        //ステータスに応じてタイトルを切り替え & タイマーコントロール (0.20)
+        //偶数 = 停止状態で再生ボタン押下 => 停止ボタンを表示して再生するためにタイマー始動 (0.20)
+        if V_Status == 0 {
+            B_StartStop.setTitle("停止", for: .normal)
+            self.V_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_UpdateTimer), userInfo: nil, repeats: true)
+        //奇数 = 再生状態で停止ボタン押下 => 再生ボタンを表示して停止するためにタイマー破棄 (0.20)
+        } else {
+            B_StartStop.setTitle("再生", for: .normal)
+            self.V_Timer.invalidate()
         }
     }
-    
+
     //進むボタンのAction作成 (0.12)
     @IBAction func A_Next(_ sender: Any) {
         
