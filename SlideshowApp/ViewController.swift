@@ -16,6 +16,12 @@ class ViewController: UIViewController {
     //再生停止ボタンのOutlet作成 (0.02) *Restoration IDもセット
     @IBOutlet weak var B_StartStop: UIButton!
     
+    //進むボタンのOutlet作成 (0.21) *Restoration IDもセット
+    @IBOutlet weak var B_Next: UIButton!
+    
+    //戻るボタンのOutlet作成 (0.21) *Restoration IDもセット
+    @IBOutlet weak var B_Previous: UIButton!
+    
     //ステータス判定用の変数 (0.03)
     var V_CountUp: Int = 0             //カウントアップ
     var V_Status: Int = 0              //ボタン押下時のステータス
@@ -91,14 +97,18 @@ class ViewController: UIViewController {
         V_CountUp += 1                    //ステータス判断したのでカウントアップ
         
         //ステータスに応じてタイトルを切り替え & タイマーコントロール (0.20)
-        //偶数 = 停止状態で再生ボタン押下 => 停止ボタンを表示して再生するためにタイマー始動 (0.20)
+        //偶数 = 停止状態で再生ボタン押下 => 停止ボタンを表示して再生するためにタイマー始動 (0.20) & 進む/戻るボタンの制御 (0.21)
         if V_Status == 0 {
             B_StartStop.setTitle("停止", for: .normal)
             self.V_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_UpdateTimer), userInfo: nil, repeats: true)
-        //奇数 = 再生状態で停止ボタン押下 => 再生ボタンを表示して停止するためにタイマー破棄 (0.20)
+            B_Next.isEnabled = false         //(0.21)
+            B_Previous.isEnabled = false     //(0.21)
+        //奇数 = 再生状態で停止ボタン押下 => 再生ボタンを表示して停止するためにタイマー破棄 (0.20) & 進む/戻るボタンの制御 (0.21)
         } else {
             B_StartStop.setTitle("再生", for: .normal)
             self.V_Timer.invalidate()
+            B_Next.isEnabled = true          //(0.21)
+            B_Previous.isEnabled = true      //(0.21)
         }
     }
 
