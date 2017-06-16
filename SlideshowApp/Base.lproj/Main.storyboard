@@ -42,11 +42,16 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="進む"/>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="IMG_Slideshow" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-DG-4RJ">
+                                <rect key="frame" x="27" y="52" width="319" height="314"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <outlet property="B_StartStop" destination="7BT-tr-d1g" id="hzd-1T-Ozj"/>
+                        <outlet property="IMG_Slideshow" destination="i3D-DG-4RJ" id="juV-mV-W8e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

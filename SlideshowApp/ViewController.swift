@@ -10,7 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    //再生停止ボタンのOutpet作成 (0.02)
+    //スライドショーのOutlet作成 (0.11) *Restoration IDもセット
+    @IBOutlet weak var IMG_Slideshow: UIImageView!
+    
+    //再生停止ボタンのOutlet作成 (0.02) *Restoration IDもセット
     @IBOutlet weak var B_StartStop: UIButton!
     
     //ステータス判定用の変数 (0.03)
@@ -23,6 +26,9 @@ class ViewController: UIViewController {
         
         //再生停止ボタンの初期値(再生)を設定 (0.03)
         B_StartStop.setTitle("再生", for: .normal)
+        
+        //画像データ1枚目を表示 (0.11)
+        IMG_Slideshow.image = UIImage(named: "001.JPG") //画像"001.JPG"を読み込みImage Viewへセットする
     }
 
     override func didReceiveMemoryWarning() {
