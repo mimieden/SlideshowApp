@@ -54,7 +54,7 @@ class ViewController: UIViewController {
     
     //スライドショーコントロールのためにタイマー用の変数を宣言 (0.20)
     var V_Timer:Timer!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -86,6 +86,17 @@ class ViewController: UIViewController {
         
         //取得したインデックス番号の画像データを表示 (0.20)
         IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+    }
+    
+    // ZoomViewControllerの遷移時の値の受け渡し (0.34)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // segueから遷移先のZoomViewControllerを取得する (0.34)
+        let L_ZoomViewController:ZoomViewController = segue.destination as! ZoomViewController
+        
+        // 遷移先のZoomViewControllerで宣言しているV_ImageNameに値を代入して渡す
+        V_PicName = L_ImageName[V_Index]
+        L_ZoomViewController.V_ImageName = V_PicName
     }
 
 
@@ -146,14 +157,6 @@ class ViewController: UIViewController {
         IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
     }
     
-    //スライドショーをタップした時のActionの作成 (0.31)
-    @IBAction func A_TapSlideshow(_ sender: Any) {
-        //"ZoomView"へ画面遷移(同じストーリーボードのビュー) (0.32)
-        let L_StoryBoard: UIStoryboard = self.storyboard!
-        let L_NextView = L_StoryBoard.instantiateViewController(withIdentifier: "ZoomView")
-        present(L_NextView, animated: true, completion: nil)
-
-    }
     
     //"ZoomView"から戻ってくるときのActionの作成 (0.33)
     @IBAction func A_Unwind(segue: UIStoryboardSegue) {

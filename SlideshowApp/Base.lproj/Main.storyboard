@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -48,7 +48,7 @@
                                     <action selector="A_Next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h1e-eY-qTf"/>
                                 </connections>
                             </button>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="IMG_Slideshow" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-DG-4RJ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="IMG_Slideshow" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-DG-4RJ">
                                 <rect key="frame" x="27" y="52" width="319" height="314"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
@@ -70,6 +70,7 @@
                 <tapGestureRecognizer id="ot1-on-3hq">
                     <connections>
                         <action selector="A_TapSlideshow:" destination="BYZ-38-t0r" id="VD0-3O-umH"/>
+                        <segue destination="wai-Id-wY6" kind="show" id="1bE-gZ-Kl3"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -78,7 +79,7 @@
         <!--Zoom View Controller-->
         <scene sceneID="IxY-qS-sZ0">
             <objects>
-                <viewController storyboardIdentifier="ZoomView" id="wai-Id-wY6" customClass="ZoomViewController" customModule="SlideshowApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wai-Id-wY6" customClass="ZoomViewController" customModule="SlideshowApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kHY-Yh-bAN"/>
                         <viewControllerLayoutGuide type="bottom" id="04j-Gd-zWV"/>
