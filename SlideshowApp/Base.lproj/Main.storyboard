@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,9 +22,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="B_StartStop" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-tr-d1g">
-                                <rect key="frame" x="120" y="391" width="135" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="B_Previous" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THv-Pn-oUw">
+                                <rect key="frame" x="77.5" y="617" width="60" height="30"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.19857662671232876" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="QgK-aR-QYg"/>
+                                    <constraint firstAttribute="width" constant="60" id="v3i-3m-Kya"/>
+                                </constraints>
+                                <state key="normal" title="戻る"/>
+                                <connections>
+                                    <action selector="A_Previous:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Is2-Zl-dkw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="B_StartStop" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-tr-d1g">
+                                <rect key="frame" x="157.5" y="617" width="60" height="30"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.1973191352739726" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="C7Q-9A-9Li"/>
+                                    <constraint firstAttribute="width" constant="60" id="Xi9-bm-KyE"/>
+                                </constraints>
                                 <state key="normal" title="B_StartStop"/>
                                 <state key="highlighted">
                                     <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -32,32 +49,41 @@
                                     <action selector="A_Push:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tf3-dy-5Kk"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="B_Next" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="il2-SN-iJz">
-                                <rect key="frame" x="299" y="391" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="B_Next" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="il2-SN-iJz">
+                                <rect key="frame" x="237.5" y="617" width="60" height="30"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="0.1973191352739726" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Xbf-4e-KtC"/>
+                                    <constraint firstAttribute="height" constant="30" id="gWE-mU-LzL"/>
+                                </constraints>
                                 <state key="normal" title="進む"/>
                                 <connections>
                                     <action selector="A_Next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h1e-eY-qTf"/>
                                 </connections>
                             </button>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="IMG_Slideshow" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-DG-4RJ">
-                                <rect key="frame" x="16" y="20" width="343" height="343"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="IMG_Slideshow" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-DG-4RJ">
+                                <rect key="frame" x="20" y="40" width="335" height="557"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="ot1-on-3hq" appends="YES" id="wxg-u3-lVd"/>
                                 </connections>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="B_Previous" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="THv-Pn-oUw">
-                                <rect key="frame" x="16" y="391" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="戻る"/>
-                                <connections>
-                                    <action selector="A_Previous:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Is2-Zl-dkw"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="THv-Pn-oUw" secondAttribute="bottom" constant="20" id="32b-Oz-ylj"/>
+                            <constraint firstItem="il2-SN-iJz" firstAttribute="leading" secondItem="7BT-tr-d1g" secondAttribute="trailing" constant="20" id="6lN-6g-okI"/>
+                            <constraint firstAttribute="trailing" secondItem="i3D-DG-4RJ" secondAttribute="trailing" constant="20" id="CBa-9i-GGv"/>
+                            <constraint firstItem="7BT-tr-d1g" firstAttribute="leading" secondItem="THv-Pn-oUw" secondAttribute="trailing" constant="20" id="DM6-hO-YUr"/>
+                            <constraint firstItem="il2-SN-iJz" firstAttribute="leading" secondItem="7BT-tr-d1g" secondAttribute="trailing" constant="20" id="FAq-Re-lgx"/>
+                            <constraint firstItem="7BT-tr-d1g" firstAttribute="leading" secondItem="THv-Pn-oUw" secondAttribute="trailing" constant="20" id="HD9-wE-G62"/>
+                            <constraint firstItem="i3D-DG-4RJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="N0n-JJ-3aN"/>
+                            <constraint firstItem="i3D-DG-4RJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="Tsm-c0-vF8"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7BT-tr-d1g" secondAttribute="bottom" constant="20" id="YO7-eX-6cz"/>
+                            <constraint firstItem="7BT-tr-d1g" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gV5-DX-iDQ"/>
+                            <constraint firstAttribute="bottom" secondItem="i3D-DG-4RJ" secondAttribute="bottom" constant="70" id="sS0-ik-m3w"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="il2-SN-iJz" secondAttribute="bottom" constant="20" id="tkC-qx-8Pm"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="B_Next" destination="il2-SN-iJz" id="etu-eY-X8m"/>
@@ -88,13 +114,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="IMG_Zoom" translatesAutoresizingMaskIntoConstraints="NO" id="o8b-E0-yjV">
-                                <rect key="frame" x="16" y="20" width="343" height="560"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="IMG_Zoom" translatesAutoresizingMaskIntoConstraints="NO" id="o8b-E0-yjV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8k-L5-Nhs">
-                                <rect key="frame" x="157" y="580" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N8k-L5-Nhs">
+                                <rect key="frame" x="157.5" y="617" width="60" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5mI-yV-oOr"/>
+                                    <constraint firstAttribute="width" constant="60" id="eZ8-bv-hRo"/>
+                                </constraints>
                                 <state key="normal" title="戻る"/>
                                 <connections>
                                     <segue destination="JFo-gE-Bxn" kind="unwind" unwindAction="A_UnwindWithSegue:" id="Jwu-fB-Hqb"/>
@@ -102,6 +131,14 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="o8b-E0-yjV" firstAttribute="leading" secondItem="rXZ-P9-1NE" secondAttribute="leading" id="8OT-q4-Neg"/>
+                            <constraint firstItem="o8b-E0-yjV" firstAttribute="top" secondItem="rXZ-P9-1NE" secondAttribute="topMargin" id="QvN-ef-K9N"/>
+                            <constraint firstItem="04j-Gd-zWV" firstAttribute="top" secondItem="o8b-E0-yjV" secondAttribute="bottom" id="Th3-Tw-yP9"/>
+                            <constraint firstAttribute="trailing" secondItem="o8b-E0-yjV" secondAttribute="trailing" id="VlY-aE-keY"/>
+                            <constraint firstItem="04j-Gd-zWV" firstAttribute="top" secondItem="N8k-L5-Nhs" secondAttribute="bottom" constant="20" id="gIa-ah-1wk"/>
+                            <constraint firstItem="N8k-L5-Nhs" firstAttribute="centerX" secondItem="rXZ-P9-1NE" secondAttribute="centerX" id="pDQ-VL-I8i"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="IMG_Zoom" destination="o8b-E0-yjV" id="TBS-QC-3RT"/>
@@ -110,7 +147,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hzi-4N-Unr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="JFo-gE-Bxn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="184.80000000000001" y="-94.002998500749626"/>
+            <point key="canvasLocation" x="608.75" y="-275.625"/>
         </scene>
     </scenes>
 </document>
