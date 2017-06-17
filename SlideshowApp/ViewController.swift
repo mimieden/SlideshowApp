@@ -145,6 +145,11 @@ class ViewController: UIViewController {
         //取得したインデックス番号の画像データを表示 (0.13)
         IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
     }
+    //スライドショーをタップした時のActionの作成 (0.31)
+    @IBAction func A_TapSlideshow(_ sender: Any) {
+        print("tap")                                    //tapでアクションをおこせているかの確認 (0.31)
+    }
+
     
 }
 

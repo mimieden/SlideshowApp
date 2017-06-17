@@ -48,9 +48,13 @@
                                     <action selector="A_Next:" destination="BYZ-38-t0r" eventType="touchUpInside" id="h1e-eY-qTf"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="IMG_Slideshow" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-DG-4RJ">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="IMG_Slideshow" translatesAutoresizingMaskIntoConstraints="NO" id="i3D-DG-4RJ">
                                 <rect key="frame" x="27" y="52" width="319" height="314"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ot1-on-3hq" appends="YES" id="wxg-u3-lVd"/>
+                                </connections>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -63,6 +67,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ot1-on-3hq">
+                    <connections>
+                        <action selector="A_TapSlideshow:" destination="BYZ-38-t0r" id="VD0-3O-umH"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-422" y="41"/>
         </scene>
