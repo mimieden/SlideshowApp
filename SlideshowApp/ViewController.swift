@@ -160,8 +160,6 @@ class ViewController: UIViewController {
     
     //"ZoomView"から戻ってくるときのActionの作成 (0.33)
     @IBAction func A_Unwind(segue: UIStoryboardSegue) {
-    }
-
-    
+    }    
 }
 

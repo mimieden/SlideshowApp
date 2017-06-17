@@ -23,14 +23,12 @@ class ZoomViewController: UIViewController {
         
         //ズームビューに遷移元画面からもらったファイル名の画像を表示 (0.35)
         IMG_Zoom.image = UIImage(named: V_ImageName)
-        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
+    }    
 
     /*
     // MARK: - Navigation
