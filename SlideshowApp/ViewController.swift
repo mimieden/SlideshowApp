@@ -154,6 +154,10 @@ class ViewController: UIViewController {
         present(L_NextView, animated: true, completion: nil)
 
     }
+    
+    //"ZoomView"から戻ってくるときのActionの作成 (0.33)
+    @IBAction func A_Unwind(segue: UIStoryboardSegue) {
+    }
 
     
 }
