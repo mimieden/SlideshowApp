@@ -78,7 +78,7 @@
         <!--Zoom View Controller-->
         <scene sceneID="IxY-qS-sZ0">
             <objects>
-                <viewController id="wai-Id-wY6" customClass="ZoomViewController" customModule="SlideshowApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ZoomView" id="wai-Id-wY6" customClass="ZoomViewController" customModule="SlideshowApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kHY-Yh-bAN"/>
                         <viewControllerLayoutGuide type="bottom" id="04j-Gd-zWV"/>
