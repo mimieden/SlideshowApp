@@ -88,13 +88,13 @@ class ViewController: UIViewController {
         IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
     }
     
-    // ZoomViewControllerの遷移時の値の受け渡し (0.34)
+    // ZoomViewControllerの遷移時の値の受け渡し (0.35)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        // segueから遷移先のZoomViewControllerを取得する (0.34)
+        // segueから遷移先のZoomViewControllerを取得する (0.35)
         let L_ZoomViewController:ZoomViewController = segue.destination as! ZoomViewController
         
-        // 遷移先のZoomViewControllerで宣言しているV_ImageNameに値を代入して渡す
+        // 遷移先のZoomViewControllerで宣言しているV_ImageNameに値を代入して渡す (0.35)
         V_PicName = L_ImageName[V_Index]
         L_ZoomViewController.V_ImageName = V_PicName
     }

@@ -13,7 +13,7 @@ class ZoomViewController: UIViewController {
     //ズームビューのOutlet作成 (0.30) *Restoration IDもセット
     @IBOutlet weak var IMG_Zoom: UIImageView!
     
-    //遷移元から受け取る画像ファイル名用の変数 (0.34)
+    //遷移元から受け取る画像ファイル名用の変数 (0.35)
     var V_ImageName: String = ""
     
     override func viewDidLoad() {
@@ -21,7 +21,7 @@ class ZoomViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        //ズームビューに遷移元画面からもらったファイル名の画像を表示 (0.34)
+        //ズームビューに遷移元画面からもらったファイル名の画像を表示 (0.35)
         IMG_Zoom.image = UIImage(named: V_ImageName)
         
     }
