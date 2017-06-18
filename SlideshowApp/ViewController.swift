@@ -10,9 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-//----------------------------------------
-//  変数(Outlet)
-//----------------------------------------
+//--------------------------------------------------
+//  変数(Outlet) *Outlet作成&RestrationIDのセット
+//--------------------------------------------------
     //スライドショーのOutlet作成 (0.11) *Restoration IDもセット
     @IBOutlet weak var IMG_Slideshow: UIImageView!
     
@@ -25,13 +25,9 @@ class ViewController: UIViewController {
     //戻るボタンのOutlet作成 (0.21) *Restoration IDもセット
     @IBOutlet weak var B_Previous: UIButton!
     
-//----------------------------------------
+//--------------------------------------------------
 //  変数/定数
-//----------------------------------------
-    //ステータス判定用の変数 (0.03)
-    var V_CountUp: Int = 0             //カウントアップ
-    var V_Status: Int = 0              //ボタン押下時のステータス
-    
+//--------------------------------------------------
     //画像の名称を配列に入れる (0.12)
     let L_ImageName = [
         "000.jpg",
@@ -61,9 +57,9 @@ class ViewController: UIViewController {
     //スライドショーコントロールのためにタイマー用の変数を宣言 (0.20)
     var V_Timer:Timer!
 
-//----------------------------------------
+//--------------------------------------------------
 //  関数(ライフサイクル)
-//----------------------------------------
+//--------------------------------------------------
     //View読み込み後
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,19 +79,15 @@ class ViewController: UIViewController {
     }
 
     
-//----------------------------------------
+//--------------------------------------------------
 //  関数(Action)
-//----------------------------------------
+//--------------------------------------------------
     //再生停止ボタンのAction作成 (0.03)
     @IBAction func A_Push(_ sender: Any) {
         
-        //カウントアップ変数よりステータス判断 (0.03)
-        V_Status = V_CountUp % 2          //カウントアップ変数から偶数/奇数を判断
-        V_CountUp += 1                    //ステータス判断したのでカウントアップ
-        
         //ステータスに応じてタイトルを切り替え & タイマーコントロール (0.20)
         //偶数 = 停止状態で再生ボタン押下 => 停止ボタンを表示して再生するためにタイマー始動 (0.20) & 進む/戻るボタンの制御 (0.21)
-        if V_Status == 0 {
+        if B_StartStop.currentTitle == "再生" {
             B_StartStop.setTitle("停止", for: .normal)
             self.V_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_UpdateTimer), userInfo: nil, repeats: true)
             B_Next.isEnabled = false         //(0.21)
@@ -148,14 +140,14 @@ class ViewController: UIViewController {
     @IBAction func A_Unwind(segue: UIStoryboardSegue) {
     }    
     
-//----------------------------------------
+//--------------------------------------------------
 //  関数(画面遷移)
-//----------------------------------------
+//--------------------------------------------------
     // ZoomViewControllerの遷移時の値の受け渡し (0.35)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //スライドショー再生時のタイマー破棄 (1.02)
-        if V_Status == 0 {
+        if B_StartStop.currentTitle == "停止" {
             B_StartStop.setTitle("再生", for: .normal)
             self.V_Timer.invalidate()
             B_Next.isEnabled = true          //(0.21)
@@ -170,9 +162,9 @@ class ViewController: UIViewController {
         L_ZoomViewController.V_ImageName = V_PicName
     }
     
-//----------------------------------------
+//--------------------------------------------------
 //  関数(内部呼び出し)
-//----------------------------------------
+//--------------------------------------------------
     //タイマーが始動すると2秒ごとに呼び出される関数 => インデックスを繰り上げて画像表示を行う (0.20)
     func F_UpdateTimer(timer: Timer) {
         //インデックスを繰り上げる (0.20)
@@ -188,6 +180,4 @@ class ViewController: UIViewController {
         //取得したインデックス番号の画像データを表示 (0.20)
         IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
     }
-
-
 }
