@@ -143,7 +143,6 @@ class ViewController: UIViewController {
 //  関数(内部呼び出し)
 //--------------------------------------------------
 //--タイマー起動で起動される関数-------------------------
-
     func F_TimerCallFunction(timer: Timer) {
         // インデックスを繰り上げるの関数を呼び出し
         F_ShowNextImage()
@@ -151,11 +150,15 @@ class ViewController: UIViewController {
 
 //--1つ後の画像を表示する関数----------------------------
     func F_ShowNextImage() {
-        //インデックスを繰り上げる (0.20)
-        if V_Index < 15 {       //Current Index:0~14 => Next Index:+1
-            V_Index += 1
-        } else {                //Current Index:15   => Next Index:-1
+        
+        //ローカル定数:配列の要素数からインデックスの最大値を取得
+        let LL_MaxIndex = L_ImageName.count - 1
+        
+        //インデックスを繰り上げる
+        if V_Index == LL_MaxIndex {      //最大の場合は0に戻す
             V_Index = 0
+        } else {
+            V_Index += 1                 //+1
         }
         
         //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.20)
@@ -167,11 +170,15 @@ class ViewController: UIViewController {
 
 //--1つ前の画像を表示する関数----------------------------
     func F_ShowPreviousImage() {
+        
+        //ローカル定数:配列の要素数からインデックスの最大値を取得
+        let LL_MaxIndex = L_ImageName.count - 1
+        
         //インデックスを繰り下げる (0.13)
-        if V_Index > 0 {       //Current Index:1~15 => Next Index:-1
+        if V_Index == 0 {
+            V_Index = LL_MaxIndex
+        } else {
             V_Index -= 1
-        } else {                //Current Index:0   => Next Index:15
-            V_Index = 15
         }
         
         //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.13)
