@@ -9,7 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+//----------------------------------------
+//  変数(Outlet)
+//----------------------------------------
     //スライドショーのOutlet作成 (0.11) *Restoration IDもセット
     @IBOutlet weak var IMG_Slideshow: UIImageView!
     
@@ -22,6 +25,9 @@ class ViewController: UIViewController {
     //戻るボタンのOutlet作成 (0.21) *Restoration IDもセット
     @IBOutlet weak var B_Previous: UIButton!
     
+//----------------------------------------
+//  変数/定数
+//----------------------------------------
     //ステータス判定用の変数 (0.03)
     var V_CountUp: Int = 0             //カウントアップ
     var V_Status: Int = 0              //ボタン押下時のステータス
@@ -46,7 +52,7 @@ class ViewController: UIViewController {
         "015.jpg",
     ]
     
-    //配列操作用の変数 (0.12)
+    //配列操作用のインデックス (0.12)
     var V_Index: Int = 0
     
     //配列から取得する画像名称 (0.12)
@@ -54,7 +60,11 @@ class ViewController: UIViewController {
     
     //スライドショーコントロールのためにタイマー用の変数を宣言 (0.20)
     var V_Timer:Timer!
-    
+
+//----------------------------------------
+//  関数(ライフサイクル)
+//----------------------------------------
+    //View読み込み後
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -71,35 +81,11 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    //タイマーが始動すると2秒ごとに呼び出される関数 => インデックスを繰り上げて画像表示を行う (0.20)
-    func F_UpdateTimer(timer: Timer) {
-        //インデックスを繰り上げる (0.20)
-        if V_Index < 15 {       //Current Index:0~14 => Next Index:+1
-            V_Index += 1
-        } else {                //Current Index:15   => Next Index:-1
-            V_Index = 0
-        }
-        
-        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.20)
-        V_PicName = L_ImageName[V_Index]
-        
-        //取得したインデックス番号の画像データを表示 (0.20)
-        IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
-    }
-    
-    // ZoomViewControllerの遷移時の値の受け渡し (0.35)
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // segueから遷移先のZoomViewControllerを取得する (0.35)
-        let L_ZoomViewController:ZoomViewController = segue.destination as! ZoomViewController
-        
-        // 遷移先のZoomViewControllerで宣言しているV_ImageNameに値を代入して渡す (0.35)
-        V_PicName = L_ImageName[V_Index]
-        L_ZoomViewController.V_ImageName = V_PicName
-    }
 
-
+    
+//----------------------------------------
+//  関数(Action)
+//----------------------------------------
     //再生停止ボタンのAction作成 (0.03)
     @IBAction func A_Push(_ sender: Any) {
         
@@ -114,7 +100,7 @@ class ViewController: UIViewController {
             self.V_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_UpdateTimer), userInfo: nil, repeats: true)
             B_Next.isEnabled = false         //(0.21)
             B_Previous.isEnabled = false     //(0.21)
-        //奇数 = 再生状態で停止ボタン押下 => 再生ボタンを表示して停止するためにタイマー破棄 (0.20) & 進む/戻るボタンの制御 (0.21)
+            //奇数 = 再生状態で停止ボタン押下 => 再生ボタンを表示して停止するためにタイマー破棄 (0.20) & 進む/戻るボタンの制御 (0.21)
         } else {
             B_StartStop.setTitle("再生", for: .normal)
             self.V_Timer.invalidate()
@@ -122,7 +108,7 @@ class ViewController: UIViewController {
             B_Previous.isEnabled = true      //(0.21)
         }
     }
-
+    
     //進むボタンのAction作成 (0.12)
     @IBAction func A_Next(_ sender: Any) {
         
@@ -142,7 +128,7 @@ class ViewController: UIViewController {
     
     //戻るボタンのAction作成 (0.12)
     @IBAction func A_Previous(_ sender: Any) {
-
+        
         //インデックスを繰り下げる (0.13)
         if V_Index > 0 {       //Current Index:1~15 => Next Index:-1
             V_Index -= 1
@@ -161,5 +147,47 @@ class ViewController: UIViewController {
     //"ZoomView"から戻ってくるときのActionの作成 (0.33)
     @IBAction func A_Unwind(segue: UIStoryboardSegue) {
     }    
-}
+    
+//----------------------------------------
+//  関数(画面遷移)
+//----------------------------------------
+    // ZoomViewControllerの遷移時の値の受け渡し (0.35)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        //スライドショー再生時のタイマー破棄 (1.02)
+        if V_Status == 0 {
+            B_StartStop.setTitle("再生", for: .normal)
+            self.V_Timer.invalidate()
+            B_Next.isEnabled = true          //(0.21)
+            B_Previous.isEnabled = true      //(0.21)
+        }
+        
+        // segueから遷移先のZoomViewControllerを取得する (0.35)
+        let L_ZoomViewController:ZoomViewController = segue.destination as! ZoomViewController
+        
+        // 遷移先のZoomViewControllerで宣言しているV_ImageNameに値を代入して渡す (0.35)
+        V_PicName = L_ImageName[V_Index]
+        L_ZoomViewController.V_ImageName = V_PicName
+    }
+    
+//----------------------------------------
+//  関数(内部呼び出し)
+//----------------------------------------
+    //タイマーが始動すると2秒ごとに呼び出される関数 => インデックスを繰り上げて画像表示を行う (0.20)
+    func F_UpdateTimer(timer: Timer) {
+        //インデックスを繰り上げる (0.20)
+        if V_Index < 15 {       //Current Index:0~14 => Next Index:+1
+            V_Index += 1
+        } else {                //Current Index:15   => Next Index:-1
+            V_Index = 0
+        }
+        
+        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.20)
+        V_PicName = L_ImageName[V_Index]
+        
+        //取得したインデックス番号の画像データを表示 (0.20)
+        IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+    }
 
+
+}
