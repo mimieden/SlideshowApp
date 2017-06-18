@@ -13,16 +13,16 @@ class ViewController: UIViewController {
 //--------------------------------------------------
 //  変数(Outlet) *Outlet作成&RestrationIDのセット
 //--------------------------------------------------
-    //スライドショーのOutlet作成 (0.11) *Restoration IDもセット
+    //スライドショーのOutlet作成
     @IBOutlet weak var IMG_Slideshow: UIImageView!
     
-    //再生停止ボタンのOutlet作成 (0.02) *Restoration IDもセット
+    //再生停止ボタンのOutlet作成 
     @IBOutlet weak var B_StartStop: UIButton!
     
-    //進むボタンのOutlet作成 (0.21) *Restoration IDもセット
+    //進むボタンのOutlet作成
     @IBOutlet weak var B_Next: UIButton!
     
-    //戻るボタンのOutlet作成 (0.21) *Restoration IDもセット
+    //戻るボタンのOutlet作成
     @IBOutlet weak var B_Previous: UIButton!
     
 //--------------------------------------------------
@@ -85,58 +85,35 @@ class ViewController: UIViewController {
     //再生停止ボタンのAction作成 (0.03)
     @IBAction func A_Push(_ sender: Any) {
         
-        //ステータスに応じてタイトルを切り替え & タイマーコントロール (0.20)
-        //偶数 = 停止状態で再生ボタン押下 => 停止ボタンを表示して再生するためにタイマー始動 (0.20) & 進む/戻るボタンの制御 (0.21)
-        if B_StartStop.currentTitle == "再生" {
-            B_StartStop.setTitle("停止", for: .normal)
-            self.V_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_UpdateTimer), userInfo: nil, repeats: true)
-            B_Next.isEnabled = false         //(0.21)
-            B_Previous.isEnabled = false     //(0.21)
-            //奇数 = 再生状態で停止ボタン押下 => 再生ボタンを表示して停止するためにタイマー破棄 (0.20) & 進む/戻るボタンの制御 (0.21)
-        } else {
-            B_StartStop.setTitle("再生", for: .normal)
-            self.V_Timer.invalidate()
-            B_Next.isEnabled = true          //(0.21)
-            B_Previous.isEnabled = true      //(0.21)
+        //ステータスに応じてボタンの表示を切り替え & 画像を進めるためのタイマー操作
+        if B_StartStop.currentTitle == "再生" {          //停止状態で再生ボタンを押下
+            B_StartStop.setTitle("停止", for: .normal)       //ボタンタイトルを停止に
+            B_Next.isEnabled = false                        //進むボタンを無効化
+            B_Previous.isEnabled = false                    //戻るボタンを無効化
+                                                            //2秒ごとに動く関数を呼び出し
+            self.V_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_TimerCallFunction), userInfo: nil, repeats: true)
+        } else {                                        //再生状態で停止ボタンを押下
+            B_StartStop.setTitle("再生", for: .normal)       //ボタンタイトルを再生に
+            B_Next.isEnabled = true                         //進むボタンを有効化
+            B_Previous.isEnabled = true                     //戻るボタンを有効化
+            self.V_Timer.invalidate()                       //タイマーを破棄
         }
     }
     
-    //進むボタンのAction作成 (0.12)
+    //進むボタンのAction
     @IBAction func A_Next(_ sender: Any) {
-        
-        //インデックスを繰り上げる (0.12)
-        if V_Index < 15 {       //Current Index:0~14 => Next Index:+1
-            V_Index += 1
-        } else {                //Current Index:15   => Next Index:-1
-            V_Index = 0
-        }
-        
-        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.12)
-        V_PicName = L_ImageName[V_Index]
-        
-        //取得したインデックス番号の画像データを表示 (0.12)
-        IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+        //1つ後の画像を表示
+        F_ShowNextImage()
     }
     
-    //戻るボタンのAction作成 (0.12)
+    //戻るボタンのAction
     @IBAction func A_Previous(_ sender: Any) {
-        
-        //インデックスを繰り下げる (0.13)
-        if V_Index > 0 {       //Current Index:1~15 => Next Index:-1
-            V_Index -= 1
-        } else {                //Current Index:0   => Next Index:15
-            V_Index = 15
-        }
-        
-        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.13)
-        V_PicName = L_ImageName[V_Index]
-        
-        //取得したインデックス番号の画像データを表示 (0.13)
-        IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+        //1つ前の画像を表示
+        F_ShowPreviousImage()
     }
     
     
-    //"ZoomView"から戻ってくるときのActionの作成 (0.33)
+    //"ZoomView"から戻ってくるときのAction
     @IBAction func A_Unwind(segue: UIStoryboardSegue) {
     }    
     
@@ -165,8 +142,15 @@ class ViewController: UIViewController {
 //--------------------------------------------------
 //  関数(内部呼び出し)
 //--------------------------------------------------
-    //タイマーが始動すると2秒ごとに呼び出される関数 => インデックスを繰り上げて画像表示を行う (0.20)
-    func F_UpdateTimer(timer: Timer) {
+//--タイマー起動で起動される関数-------------------------
+
+    func F_TimerCallFunction(timer: Timer) {
+        // インデックスを繰り上げるの関数を呼び出し
+        F_ShowNextImage()
+    }
+
+//--1つ後の画像を表示する関数----------------------------
+    func F_ShowNextImage() {
         //インデックスを繰り上げる (0.20)
         if V_Index < 15 {       //Current Index:0~14 => Next Index:+1
             V_Index += 1
@@ -180,4 +164,21 @@ class ViewController: UIViewController {
         //取得したインデックス番号の画像データを表示 (0.20)
         IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
     }
+
+//--1つ前の画像を表示する関数----------------------------
+    func F_ShowPreviousImage() {
+        //インデックスを繰り下げる (0.13)
+        if V_Index > 0 {       //Current Index:1~15 => Next Index:-1
+            V_Index -= 1
+        } else {                //Current Index:0   => Next Index:15
+            V_Index = 15
+        }
+        
+        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.13)
+        V_PicName = L_ImageName[V_Index]
+        
+        //取得したインデックス番号の画像データを表示 (0.13)
+        IMG_Slideshow.image = UIImage(named: V_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+    }
+
 }
