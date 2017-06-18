@@ -85,17 +85,10 @@ class ViewController: UIViewController {
 //--再生/停止ボタン押下時に実行されるAction---------------
     @IBAction func A_Push(_ sender: Any) {
         //ステータスに応じてボタンの表示を切り替え & 画像を進めるためのタイマー操作
-        if B_StartStop.currentTitle == "再生" {          //停止状態で再生ボタンを押下
-            B_StartStop.setTitle("停止", for: .normal)       //ボタンタイトルを停止に
-            B_Next.isEnabled = false                        //進むボタンを無効化
-            B_Previous.isEnabled = false                    //戻るボタンを無効化
-                                                            //2秒ごとに動く関数を呼び出し
-            self.GV_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_TimerCallFunction), userInfo: nil, repeats: true)
-        } else {                                        //再生状態で停止ボタンを押下
-            B_StartStop.setTitle("再生", for: .normal)       //ボタンタイトルを再生に
-            B_Next.isEnabled = true                         //進むボタンを有効化
-            B_Previous.isEnabled = true                     //戻るボタンを有効化
-            self.GV_Timer.invalidate()                       //タイマーを破棄
+        if B_StartStop.currentTitle == "再生" {          //スライドショーの再生
+            F_StartSlideShow()
+        } else {
+            F_StopSlideShow()
         }
     }
     
@@ -115,12 +108,9 @@ class ViewController: UIViewController {
 //--View Controller => Zoom View Controller---------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        //スライドショー再生時のタイマー破棄 (1.02)
+        //スライドショー実行中の場合、スライドショーの停止
         if B_StartStop.currentTitle == "停止" {
-            B_StartStop.setTitle("再生", for: .normal)
-            self.GV_Timer.invalidate()
-            B_Next.isEnabled = true          //(0.21)
-            B_Previous.isEnabled = true      //(0.21)
+            F_StopSlideShow()
         }
         
         // segueから遷移先のZoomViewControllerを取得する (0.35)
@@ -182,6 +172,22 @@ class ViewController: UIViewController {
         
         //取得したインデックス番号の画像データを表示 (0.13)
         IMG_Slideshow.image = UIImage(named: GV_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+    }
+    
+//--スライドショーの開始----------------------------
+    func F_StartSlideShow() {
+        B_StartStop.setTitle("停止", for: .normal)       //ボタンタイトルを停止に
+        B_Next.isEnabled = false                        //進むボタンを無効化
+        B_Previous.isEnabled = false                    //戻るボタンを無効化
+        //2秒ごとに動く関数を呼び出し
+        self.GV_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_TimerCallFunction), userInfo: nil, repeats: true)
+    }
+//--スライドショーの停止----------------------------
+    func F_StopSlideShow() {
+        B_StartStop.setTitle("再生", for: .normal)       //ボタンタイトルを再生に
+        B_Next.isEnabled = true                         //進むボタンを有効化
+        B_Previous.isEnabled = true                     //戻るボタンを有効化
+        self.GV_Timer.invalidate()                       //タイマーを破棄
     }
 
 }
