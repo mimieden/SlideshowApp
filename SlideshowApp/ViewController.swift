@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var B_StartStop: UIButton!
     
     //進むボタンのOutlet
+    
     @IBOutlet weak var B_Next: UIButton!
     
     //戻るボタンのOutlet
@@ -48,13 +49,13 @@ class ViewController: UIViewController {
         "015.jpg",
     ]
     
-    //配列操作用のインデックス (0.12)
+    //配列操作用のインデックス
     var GV_Index: Int = 0
     
-    //配列から取得する画像名称 (0.12)
+    //配列から取得する画像名称
     var GV_PicName: String = ""
     
-    //スライドショーコントロールのためにタイマー用の変数を宣言 (0.20)
+    //スライドショーコントロールのためにタイマー用の変数を宣言
     var GV_Timer:Timer!
 
 //==================================================
@@ -85,21 +86,21 @@ class ViewController: UIViewController {
 //--再生/停止ボタン押下時に実行されるAction---------------
     @IBAction func A_Push(_ sender: Any) {
         //ステータスに応じてボタンの表示を切り替え & 画像を進めるためのタイマー操作
-        if B_StartStop.currentTitle == "再生" {          //スライドショーの再生
-            F_StartSlideShow()
+        if B_StartStop.currentTitle == "再生" {
+            F_StartSlideShow()                            //スライドショーの再生
         } else {
-            F_StopSlideShow()
+            F_StopSlideShow()                             //スライドショーの停止
         }
     }
     
 //--進むボタン押下時に実行されるAction-------------------
     @IBAction func A_Next(_ sender: Any) {
-        F_ShowNextImage()            //1つ後の画像を表示
+        F_ShowNextImage()                                 //1つ後の画像を表示
     }
     
 //--戻るボタン押下時に実行されるAction-------------------
     @IBAction func A_Previous(_ sender: Any) {
-        F_ShowPreviousImage()       //1つ前の画像を表示
+        F_ShowPreviousImage()                             //1つ前の画像を表示
     }
     
 //==================================================
@@ -107,16 +108,15 @@ class ViewController: UIViewController {
 //==================================================
 //--View Controller => Zoom View Controller---------
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         //スライドショー実行中の場合、スライドショーの停止
         if B_StartStop.currentTitle == "停止" {
             F_StopSlideShow()
         }
         
-        // segueから遷移先のZoomViewControllerを取得する (0.35)
+        // segueから遷移先のZoomViewControllerを取得する
         let L_ZoomViewController:ZoomViewController = segue.destination as! ZoomViewController
         
-        // 遷移先のZoomViewControllerで宣言しているV_ImageNameに値を代入して渡す (0.35)
+        // 遷移先のZoomViewControllerで宣言しているV_ImageNameに値を代入して渡す
         GV_PicName = GL_ImageName[GV_Index]
         L_ZoomViewController.V_ImageName = GV_PicName
     }
@@ -134,60 +134,58 @@ class ViewController: UIViewController {
         F_ShowNextImage()
     }
 
-//--1つ後の画像を表示する関数----------------------------
+//--1つ後の画像を表示------------------------------
     func F_ShowNextImage() {
-        
         //ローカル定数:配列の要素数からインデックスの最大値を取得
         let LL_MaxIndex = GL_ImageName.count - 1
         
-        //インデックスを繰り上げる
-        if GV_Index == LL_MaxIndex {      //最大の場合は0に戻す
+        //インデックスを繰り上げる(最後のインデックスの次は0をセットする)
+        if GV_Index == LL_MaxIndex {
             GV_Index = 0
         } else {
-            GV_Index += 1                 //+1
+            GV_Index += 1
         }
         
-        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.20)
+        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得
         GV_PicName = GL_ImageName[GV_Index]
         
-        //取得したインデックス番号の画像データを表示 (0.20)
-        IMG_Slideshow.image = UIImage(named: GV_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+        //取得したインデックス番号の画像データをImage Viewへセット
+        IMG_Slideshow.image = UIImage(named: GV_PicName)
     }
 
-//--1つ前の画像を表示する関数----------------------------
+//--1つ前の画像を表示------------------------------
     func F_ShowPreviousImage() {
-        
         //ローカル定数:配列の要素数からインデックスの最大値を取得
         let LL_MaxIndex = GL_ImageName.count - 1
         
-        //インデックスを繰り下げる (0.13)
+        //インデックスを繰り下げる(0の前は最後のインデックスをセットする)
         if GV_Index == 0 {
             GV_Index = LL_MaxIndex
         } else {
             GV_Index -= 1
         }
         
-        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得 (0.13)
+        //繰り上げたインデックスと同じインデックスの写真名を配列から変数に取得
         GV_PicName = GL_ImageName[GV_Index]
         
-        //取得したインデックス番号の画像データを表示 (0.13)
-        IMG_Slideshow.image = UIImage(named: GV_PicName) //繰り上げたインデックス番号の画像をImage Viewへセットする
+        //取得したインデックス番号の画像データをImage Viewへセット
+        IMG_Slideshow.image = UIImage(named: GV_PicName)
     }
     
 //--スライドショーの開始----------------------------
     func F_StartSlideShow() {
-        B_StartStop.setTitle("停止", for: .normal)       //ボタンタイトルを停止に
-        B_Next.isEnabled = false                        //進むボタンを無効化
-        B_Previous.isEnabled = false                    //戻るボタンを無効化
-        //2秒ごとに動く関数を呼び出し
-        self.GV_Timer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(F_TimerCallFunction), userInfo: nil, repeats: true)
+        B_StartStop.setTitle("停止", for: .normal)         //ボタンタイトルを停止に
+        B_Next.isEnabled = false                          //進むボタンを無効化
+        B_Previous.isEnabled = false                      //戻るボタンを無効化
+        self.GV_Timer                                     //スライドショー開始 (タイマーで2秒ごとに次画像を表示)
+            = Timer.scheduledTimer(timeInterval: 2.0,target: self,selector: #selector(F_TimerCallFunction),userInfo: nil,repeats: true)
     }
 //--スライドショーの停止----------------------------
     func F_StopSlideShow() {
-        B_StartStop.setTitle("再生", for: .normal)       //ボタンタイトルを再生に
-        B_Next.isEnabled = true                         //進むボタンを有効化
-        B_Previous.isEnabled = true                     //戻るボタンを有効化
-        self.GV_Timer.invalidate()                       //タイマーを破棄
+        B_StartStop.setTitle("再生", for: .normal)         //ボタンタイトルを再生に
+        B_Next.isEnabled = true                           //進むボタンを有効化
+        B_Previous.isEnabled = true                       //戻るボタンを有効化
+        self.GV_Timer.invalidate()                        //スライドショーを停止(タイマーの破棄)
     }
 
 }
